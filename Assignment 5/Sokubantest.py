@@ -67,8 +67,13 @@ def move(x,y,dx,dy):
 
 def check_map(x,y,mx_width,my_height):
     if x < 0 or x > mx_width -1 or y < 0 or y > my_height -1:
-        return False
-    return True
+        return True
+    return False
+
+def check_walls(next_px,next_py,walls):
+    if [next_px,next_py] == find_obj(walls,next_px,next_py) :
+        return True
+    return False
 
 def check_win(boxes,points):
     if boxes == points:
@@ -99,11 +104,17 @@ while True:
         dx = 1
 
     [next_px,next_py] = move(px,py,dx,dy)
-    check_map(next_px, next_py, mx_width, my_height)
+
+
     found_box = find_obj(boxes, next_px, next_py)
+#    [next_bx,next_by] = [found_box["x"] + dx, found_box["y"] + dy]
+#    check_map(next_bx,next_by,mx_width,my_height)
+    if check_map(next_px, next_py, mx_width, my_height)== True or check_walls(next_px,next_py,walls) == True:
+        print("Try Again")
     if found_box is not None:
         found_box["x"] += dx
         found_box["y"] += dy
+ #       next_bx, next_by = int(found_box["x"]) + dx, int(found_box["y"]) + dy
         [px, py] = [next_px, next_py]
     else:
         [px, py] = [next_px, next_py]
