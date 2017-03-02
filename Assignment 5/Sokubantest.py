@@ -12,25 +12,26 @@ walls = [{"x": 2, "y": 5},{"x": 2, "y": 1}]
 
 #points
 points = [{"x": 0, "y": 0},
-          {"x": 0, "y": 1},
-          {"x": 1, "y": 0},
-          {"x": 1, "y": 1},
-          {"x": 3, "y": 0},
-          {"x": 3, "y": 1},
-          {"x": 4, "y": 0},
-          {"x": 4, "y": 1}]
+          {"x": 0, "y": 1}]
+# points.append({"x": 1, "y": 0})
+# points.append({"x": 1, "y": 1})
+# points.append({"x": 3, "y": 0})
+# points.append({"x": 3, "y": 1})
+# points.append({"x": 4, "y": 0})
+# points.append({"x": 4, "y": 1})
 
 #boxes
 boxes =  [{"x": 2, "y": 0},
           {"x": 1, "y": 2},]
-boxes.append({"x": 2, "y": 2})
-boxes.append({"x": 3, "y": 2})
-boxes.append({"x": 2, "y": 3})
-boxes.append({"x": 1, "y": 4})
-boxes.append({"x": 2, "y": 4})
-boxes.append({"x": 3, "y": 4})
+# boxes.append({"x": 2, "y": 2})
+# boxes.append({"x": 3, "y": 2})
+# boxes.append({"x": 2, "y": 3})
+# boxes.append({"x": 1, "y": 4})
+# boxes.append({"x": 2, "y": 4})
+# boxes.append({"x": 3, "y": 4})
 
-
+# next_bx = ''
+# next_by = ''
 
 
 def check_match(list,x,y):
@@ -46,10 +47,10 @@ def print_map(my_height,mx_width,px,py,walls,points,boxes):
                 print("P ", end='')
             elif check_match(walls,x,y):
                 print("# ",end='')
-            elif check_match(points,x,y):
-                print("o ",end='')
             elif check_match(boxes,x,y):
                 print("B ", end='')
+            elif check_match(points,x,y):
+                print("o ",end='')
             else:
                 print("_ ",end='')
         print()
@@ -69,12 +70,20 @@ def check_map(x,y,mx_width,my_height):
         return False
     return True
 
+def check_win(boxes,points):
+    if boxes == points:
+        return True
+
+
 
 
 
 
 while True:
     print_map(my_height, mx_width, px, py, walls, points, boxes)
+    if check_win(boxes, points) == True:
+        print("You Won!!!")
+        break
     choice = input("Pls, choose (W-S-A-D): ").upper()
 
     dx = 0
@@ -90,13 +99,18 @@ while True:
         dx = 1
 
     [next_px,next_py] = move(px,py,dx,dy)
-    if not check_map(next_px,next_py,mx_width,my_height):
-        print("Try something esle!")
+    check_map(next_px, next_py, mx_width, my_height)
+    found_box = find_obj(boxes, next_px, next_py)
+    if found_box is not None:
+        found_box["x"] += dx
+        found_box["y"] += dy
+        [px, py] = [next_px, next_py]
     else:
-        found_box = find_obj(boxes,next_px,next_py)
-        if found_box is not None:
-            found_box["x"] += dx
-            found_box["y"] += dy
-            [px,py] = [next_px,next_py]
-        else:
-            [px, py] = [next_px, next_py]
+        [px, py] = [next_px, next_py]
+
+
+
+
+
+
+
