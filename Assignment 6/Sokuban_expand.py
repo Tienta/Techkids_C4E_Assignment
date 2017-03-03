@@ -96,7 +96,7 @@ while True:
         found_box = find_obj(boxes,next_p)
         if found_box is not None:
             next_b = move(found_box,dx,dy)
-            if in_map(next_b,mx_width,my_height) and not check_collide(next_b, walls):
+            if in_map(next_b,mx_width,my_height) and not check_collide(next_b, walls) and not check_collide(next_b,boxes):
                 found_box["x"] += dx
                 found_box["y"] += dy
                 p = next_p
