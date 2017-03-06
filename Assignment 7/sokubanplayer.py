@@ -5,7 +5,9 @@ class Player:
         self.text = "P "
 
     def move(self,dx,dy):
-        return [self.x + dx, self.y + dy]
+        self.x += dx
+        self.y += dy
+
 
     def calc_move(self,dx,dy):
         return [self.x + dx, self.y + dy]

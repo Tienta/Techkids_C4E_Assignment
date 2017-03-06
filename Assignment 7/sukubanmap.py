@@ -45,13 +45,13 @@ class Map:
         elif direction == "A":
             dx,dy = -1,0
 
-        if self.in_map(self.move_player(dx, dy)[0],self.move_player(dx,dy)[1]) == True:
-            if self.box.x == self.move_player(dx,dy)[0] and self.box.y == self.move_player(dx,dy)[1]:
-                if self.in_map(self.move_box(dx,dy)[0],self.move_box(dx,dy)[1]) == True:
+        if self.in_map(self.player.calc_move(dx,dy)[0],self.player.calc_move(dx,dy)[1]):
+            if self.box.x == self.player.calc_move(dx,dy)[0] and self.box.y == self.player.calc_move(dx,dy)[1]:
+                if self.in_map(self.box.calc_move(dx,dy)[0],self.box.calc_move(dx,dy)[1]):
+                    self.move_player(dx,dy)
                     self.move_box(dx,dy)
-                    self.move_player(dx,dy)
-                else:
-                    self.move_player(dx,dy)
+        else:
+            self.move_player(dx,dy)
 
 
         self.player.move(dx,dy)

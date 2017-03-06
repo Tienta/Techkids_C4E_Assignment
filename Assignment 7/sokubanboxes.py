@@ -5,8 +5,12 @@ class Box:
         self.text = "B "
 
     def move(self,dx,dy):
-        return [self.x + dx, self.y + dy]
+        self.x += dx
+        self.y += dy
 
     def match(self,x,y):
         if self.x == x and self.y == y:
             return True
+
+    def calc_move(self,dx,dy):
+        return [self.x + dx, self.y + dy]
